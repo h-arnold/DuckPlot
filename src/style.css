@@ -31,6 +31,11 @@
   background-color: #fafaf9 !important;
 }
 
+/* Let heatmap canvas pass through pointer events so pins stay clickable */
+.leaflet-heatmap-layer {
+  pointer-events: none;
+}
+
 /* Fluid Map Container */
 #map {
   height: 100%;

@@ -81,11 +81,14 @@ let currentTileLayer;
 /*  Map initialisation                                                 */
 /* ------------------------------------------------------------------ */
 
+const sharedCanvasRenderer = L.canvas({ padding: 0.2 });
+
 export function initializeMainMap() {
     mapInstance = L.map('map', {
         center: [51.505, -0.09],
         zoom: 11,
         zoomControl: false,
+        renderer: sharedCanvasRenderer,
     });
 
     // Add default tile layer (OSM Standard — recommended)
@@ -605,12 +608,10 @@ export function updateLayerTimeWindow(meta, windowStart, grouping) {
     let newLayer;
 
     if (meta.type === 'pins') {
-        const canvasRenderer = L.canvas({ padding: 0.2 });
         const group = L.layerGroup();
 
         for (const pt of active) {
             const marker = L.circleMarker([pt.lat, pt.lng], {
-                renderer: canvasRenderer,
                 radius: 6,
                 fillColor: meta.color,
                 color: '#44403c',
