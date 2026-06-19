@@ -2,15 +2,13 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.heat';
 import { createIcons, icons } from 'lucide';
-import { DateTime } from 'luxon';
-import { constructHeatmapGradient, getGroupStart, getGroupEnd } from './utils.js';
+import { constructHeatmapGradient, getGroupEnd } from './utils.js';
 import { dispatchNotification } from './notifications.js';
 import {
     createTimelineControl,
     destroyTimelineControl,
     registerTimelineLayer,
     unregisterTimelineLayer,
-    hasTimelineLayers,
     updateTimelineActivity,
 } from './timeline.js';
 
@@ -262,7 +260,6 @@ export function registerLayer(name, type, color, coords, nativeLayer) {
         grouping: null,
         dateRange: null,
         currentWindowStart: null,
-        filteredCoords: null,
     };
 
     layersRegistry.push(meta);
@@ -596,8 +593,6 @@ export function updateLayerTimeWindow(meta, windowStart, grouping) {
         }
         // Points outside the window are simply excluded — no dimmed rendering
     }
-
-    meta.filteredCoords = active;
 
     // Remove old native layer from map
     if (mapInstance.hasLayer(meta.nativeLayer)) {

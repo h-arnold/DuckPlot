@@ -269,19 +269,6 @@ class TimelineControl {
         return this._steps[Math.min(this._currentStep, this._steps.length - 1)];
     }
 
-    getCurrentWindow() {
-        if (!this._rangeMin || !this._rangeMax) return null;
-        const start = this._getWindowStart();
-        const end = getGroupEnd(start, this._grouping);
-        return { start, end: end <= this._rangeMax ? end : this._rangeMax };
-    }
-
-    setStep(step) {
-        this._currentStep = Math.max(0, Math.min(step, this._totalSteps));
-        this._slider.value = String(this._currentStep);
-        this._updateLabels();
-    }
-
     show() {
         this._el.classList.remove('timeline-hidden');
     }
@@ -393,13 +380,6 @@ export function destroyTimelineControl() {
 }
 
 /**
- * Show the timeline control if it exists.
- */
-export function showTimelineControl() {
-    if (activeControl) activeControl.show();
-}
-
-/**
  * Register a layer as having timeline data.
  * @param {import('./types').LayerMeta} meta
  */
@@ -422,15 +402,6 @@ export function unregisterTimelineLayer(layerId) {
     } else {
         updateTimelineActivity();
     }
-}
-
-/**
- * Get the current scrub window.
- * @returns {{ start: DateTime, end: DateTime }|null}
- */
-export function getCurrentWindow() {
-    if (activeControl) return activeControl.getCurrentWindow();
-    return null;
 }
 
 /**

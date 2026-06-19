@@ -31,7 +31,7 @@ export function loadSampleDataset() {
  */
 export function downloadSampleCSV() {
     const rows = [
-        ['latitude', 'longditude', 'date/time(optional)', 'optional_meta_data_1', 'optional_metadata_2'],
+        ['latitude', 'longitude', 'date/time(optional)', 'optional_meta_data_1', 'optional_metadata_2'],
         ['51.5074', '-0.1278', '2024-03-15 14:30', 'Sensor-A7', 'Firmware v2.1'],
         ['51.4545', '-2.5879', '', 'Sensor-B2', 'Firmware v1.8'],
         ['53.4808', '-2.2426', '2024-06-22 09:15', 'Sensor-C9', 'Firmware v3.0'],

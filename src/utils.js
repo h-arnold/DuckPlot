@@ -26,15 +26,6 @@ export function constructHeatmapGradient(hexColor) {
 }
 
 /**
- * Pick a random colour from a curated palette.
- * @returns {string}
- */
-export function randomHexColor() {
-    const colors = ['#6366f1', '#10b981', '#f43f5e', '#f59e0b', '#ec4899', '#06b6d4', '#8b5cf6'];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-/**
  * Get the start of a grouping interval for a DateTime.
  * @param {import('luxon').DateTime} dt
  * @param {string} grouping

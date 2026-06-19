@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet.heat';
 import { DateTime } from 'luxon';
 import { layersRegistry, registerLayer, renderActiveLayersUI, initializeTimelineForLayer } from './map.js';
-import { constructHeatmapGradient, getGroupStart, getGroupEnd } from './utils.js';
+import { constructHeatmapGradient } from './utils.js';
 import { dispatchNotification } from './notifications.js';
 
 /* ------------------------------------------------------------------ */
