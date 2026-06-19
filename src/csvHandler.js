@@ -145,6 +145,22 @@ function launchConfigurationWizard(fileName, dataRows) {
         }
     }
 
+    // Populate header field dropdown
+    const headerSel = document.getElementById('wizardHeaderField');
+    if (headerSel) {
+        headerSel.innerHTML = '<option value="">— None (use "Entity Attributes") —</option>';
+        const headerRe = /^(name|title|label|id)$/i;
+        let matchedHeader = '';
+        for (const h of sampleKeys) {
+            const o = document.createElement('option');
+            o.value = h;
+            o.textContent = h;
+            if (!matchedHeader && headerRe.test(h.trim())) matchedHeader = h;
+            if (h === matchedHeader) o.selected = true;
+            headerSel.appendChild(o);
+        }
+    }
+
     // Reset timeline checkbox
     const chkTimeline = document.getElementById('chkTimeline');
     if (chkTimeline) chkTimeline.checked = false;
@@ -284,6 +300,7 @@ export function compileAndAddLayer() {
     const colLng = document.getElementById('wizardLngCol')?.value;
     const colorHex = document.getElementById('wizardColor')?.value || '#ff0000';
     const visualStyle = activeWizardType;
+    const headerField = document.getElementById('wizardHeaderField')?.value || '';
 
     const chkTimeline = /** @type {HTMLInputElement} */ (document.getElementById('chkTimeline'));
     const useTimeline = chkTimeline?.checked || false;
@@ -384,8 +401,9 @@ export function compileAndAddLayer() {
                 fillOpacity: 0.85,
             });
 
+            const popupTitle = headerField && pt.attributes[headerField] ? pt.attributes[headerField] : 'Entity Attributes';
             let html = `<div class="p-2 space-y-1 max-h-[180px] overflow-y-auto font-sans text-xs">`;
-            html += `<div class="font-bold border-b border-stone-200 pb-1.5 mb-2 flex items-center gap-1.5 text-stone-600"><i data-lucide="info" class="w-3.5 h-3.5 text-indigo-500"></i> Entity Attributes</div>`;
+            html += `<div class="font-bold border-b border-stone-200 pb-1.5 mb-2 flex items-center gap-1.5 text-stone-600"><i data-lucide="info" class="w-3.5 h-3.5 text-indigo-500"></i> ${popupTitle}</div>`;
             for (const [k, v] of Object.entries(pt.attributes)) {
                 html += `<div class="flex flex-col gap-0.5"><span class="text-stone-400 font-semibold uppercase text-[9px] tracking-wider">${k}</span><span class="text-stone-700 font-mono select-all">${v}</span></div>`;
             }
@@ -408,6 +426,8 @@ export function compileAndAddLayer() {
 
     const registered = registerLayer(name, visualStyle, colorHex, mappedPoints, nativeLayer);
     if (!registered) return;
+
+    registered.headerField = headerField || null;
 
     // Set timeline metadata on the registered layer
     if (useTimeline && dateRange) {

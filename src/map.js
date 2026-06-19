@@ -620,8 +620,9 @@ export function updateLayerTimeWindow(meta, windowStart, grouping) {
                 fillOpacity: meta.opacity,
             });
 
+            const popupTitle = meta.headerField && pt.attributes[meta.headerField] ? pt.attributes[meta.headerField] : 'Entity Attributes';
             let html = `<div class="p-2 space-y-1 max-h-[180px] overflow-y-auto font-sans text-xs">`;
-            html += `<div class="font-bold border-b border-stone-200 pb-1.5 mb-2 flex items-center gap-1.5 text-stone-600"><i data-lucide="info" class="w-3.5 h-3.5 text-indigo-500"></i> Entity Attributes</div>`;
+            html += `<div class="font-bold border-b border-stone-200 pb-1.5 mb-2 flex items-center gap-1.5 text-stone-600"><i data-lucide="info" class="w-3.5 h-3.5 text-indigo-500"></i> ${popupTitle}</div>`;
             for (const [k, v] of Object.entries(pt.attributes)) {
                 html += `<div class="flex flex-col gap-0.5"><span class="text-stone-400 font-semibold uppercase text-[9px] tracking-wider">${k}</span><span class="text-stone-700 font-mono select-all">${v}</span></div>`;
             }

@@ -15,6 +15,7 @@
  * @property {{min: import('luxon').DateTime, max: import('luxon').DateTime}|null} dateRange - Min/max parsed dates
  * @property {import('luxon').DateTime|null} currentWindowStart - Current scrubber window start
  * @property {Array<{lat:number,lng:number,attributes:Record<string,string>}>|null} filteredCoords - Subset matching current window
+ * @property {string|null} headerField - CSV column name whose value is used as the popup header for each pin
  */
 
 export { };
